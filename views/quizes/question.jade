@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    Pregunta
+  body
+      h1 Quiz: el juego de las preguntas
+      br
+      h3 #{pregunta}
+      form(method ="get", action="/quizes/answer")
+        input(type="text", name="respuesta", value="Responda aquí").
+        input(type="submit", value="Enviar")
