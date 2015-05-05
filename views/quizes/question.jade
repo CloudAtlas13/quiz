@@ -1,10 +1,6 @@
-doctype html
-html
-  head
-    Pregunta
-  body
-      h1 Quiz: el juego de las preguntas
-      br
+extend ../layout
+
+block content
       h3 #{pregunta}
       form(method ="get", action="/quizes/answer")
         input(type="text", name="respuesta", value="Responda aquí").

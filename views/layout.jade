@@ -4,4 +4,20 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    div#page-wrap
+      header.main#h1
+        h2 Quiz: el juego de las preguntas
+
+      nav.main#n1(role = "navigation")
+        span
+          a(href="/") Inicio  
+          a(href="/quizes/question") Preguntas
+
+      section.main#s1
+        block content
+
+      footer.main#f1
+        br
+        a(href="http://es.wikipedia.org/wiki/Quiz") ¿Qué es un Quiz?
+        br
+        a(href="/authors") Autores
