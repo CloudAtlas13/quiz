@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz' });
 });
 
-router.get('/authors', function(req, res, next) {
-  res.render('authors', { title: 'Bienvenido a Quiz' });
+router.get('/author', function(req, res, next) {
+  res.render('author', { title: 'Autor' });
 });
 
 //Eventos que atienden a las preguntas y a las respuestas del Quiz
