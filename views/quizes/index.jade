@@ -1,8 +1,11 @@
 extend ../layout
 
 block content
-  - var n = 0
-  - var t = #{quizes.lenght}
+  br
+  h3 Lista de Preguntas
+  br
   table
-    while n < t
-      tr: td= a(href="quizes/#{quizes[n].id}") #{quizes[n].pregunta}
+    each quiz in quizes
+      tr
+        th
+          a(href="quizes/#{quiz.id}") #{quiz.pregunta}
