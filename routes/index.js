@@ -14,7 +14,8 @@ router.get('/authors', function(req, res, next) {
 });
 
 //Eventos que atienden a las preguntas y a las respuestas del Quiz
-router.get('/quizes/question', quizController.question);
-router.get('/quizes/answer', quizController.answer);
+router.get('/quizes', quizController.index);
+router.get('/quizes/:quizId(\\d+)', quizController.show);
+router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
 module.exports = router;
