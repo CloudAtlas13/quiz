@@ -1,0 +1,7 @@
+extend ../layout
+
+block content
+  form(method ="get", action="/quizes/#{quiz.id}/answer")
+    h3 Pregunta: #{quiz.pregunta}
+    input(type="text", name="respuesta", value="Responda aquí")
+    input(type="submit", value="Enviar")

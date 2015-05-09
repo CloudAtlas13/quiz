@@ -1,0 +1,8 @@
+extend ../layout
+
+block content
+  - var n = 0
+  - var t = #{quizes.lenght}
+  table
+    while n < t
+      tr: td= a(href="quizes/#{quizes[n].id}") #{quizes[n].pregunta}
