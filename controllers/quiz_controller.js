@@ -17,7 +17,15 @@ exports.answer = function(req, res) {
 };
 
 exports.index = function(req, res){
-  models.Quiz.findAll().then(function(quizes){
-    res.render('quizes/index.jade', {quizes: quizes});
-  })
+  if(req.query.search === ''){
+    models.Quiz.findAll().then(function(quizes){
+      res.render('quizes/index.jade', {quizes: quizes});
+      console.log('Carga');
+    });
+  }else{
+    models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
+      res.render('quizes/index.jade', {quizes: quizes});
+      console.log('bUSCA');
+    });
+  }
 };
