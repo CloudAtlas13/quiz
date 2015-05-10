@@ -1,7 +1,6 @@
 extend ../layout
 
 block content
-  p hola
   form(method ="get", action="/quizes/#{quiz.id}/answer")
     h3 Pregunta: #{quiz.pregunta}
     input(type="text", name="respuesta", value="Responda aquí")

@@ -4,8 +4,18 @@ block content
   br
   h3 Lista de Preguntas
   br
-  table
-    each quiz in quizes
-      tr
-        th
-          a(href="quizes/#{quiz.id}") #{quiz.pregunta}
+
+  #preguntas
+      table
+        each quiz in quizes
+          tr
+            th
+              a(href="quizes/#{quiz.id}") #{quiz.pregunta}
+  br
+  br
+  form(method ="get", action="/quizes")
+    input(type="text", name="search", value="")
+    input(type="submit", value="Buscar")
+
+  br
+  a#volver(href="quizes") Mostrar lista
