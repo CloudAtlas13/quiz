@@ -9,8 +9,12 @@ block content
       table
         each quiz in quizes
           tr
-            th
+            td
               a(href="quizes/#{quiz.id}") #{quiz.pregunta}
+            td
+              a(href="quizes/#{quiz.id}/edit")
+                button Editar
+
   a#crea(href="/quizes/new")
     button(type = "button") Crear pregunta
   br

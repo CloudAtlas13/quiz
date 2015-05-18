@@ -1,8 +1,8 @@
 label(for = "preg", class = "rem") Pregunta:
-input(type="text", id="preg", name="quiz[pregunta]")
+input(type="text", id="preg", name="quiz[pregunta]", value = "#{quiz.pregunta}")
 br
 label(for = "resp", class = "rem") Respuesta:
-input(type="text", id="resp", name="quiz[respuesta]")
+input(type="text", id="resp", name="quiz[respuesta]", value = "#{quiz.respuesta}")
 br
 a(href="/quizes")
   button(type = "button") Cancelar
