@@ -13,6 +13,8 @@ router.get('/author', function(req, res, next) {
   res.render('author', { title: 'Autor' });
 });
 
+router.param('quizId', quizController.load);
+
 //Eventos que atienden a las preguntas y a las respuestas del Quiz
 router.get('/quizes', quizController.index);
 router.get('/quizes/:quizId(\\d+)', quizController.show);
