@@ -11,6 +11,8 @@ block content
           tr
             th
               a(href="quizes/#{quiz.id}") #{quiz.pregunta}
+  a#crea(href="/quizes/new")
+    button(type = "button") Crear pregunta
   br
   br
   form(method ="get", action="/quizes")
@@ -18,4 +20,4 @@ block content
     input(type="submit", value="Buscar")
 
   br
-  a#volver(href="quizes") Mostrar lista
+  a#volver(href="/quizes") Mostrar lista

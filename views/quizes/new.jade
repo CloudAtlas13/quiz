@@ -1,0 +1,7 @@
+extend ../layout
+
+block content
+  br
+  p Añadir pregunta:
+  form(method ="post", action="/quizes/create")
+    include _form.jade
