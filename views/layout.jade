@@ -15,6 +15,13 @@ html
           a(href="/author")    Autores
 
       section.main#s1
+        if errors.length
+          span#ErrorMsgs Corregir errores
+          br
+          each error in errors
+            span #{error.message}
+            br
+
         block content
 
       footer.main#f1
