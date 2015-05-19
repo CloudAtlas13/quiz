@@ -1,0 +1,14 @@
+extend ../layout
+
+block content
+  h2 Login
+
+  form(method ="post", action="/login")
+    .field
+      label(for="login") Login:
+      input(type="text", id="login", name="login", size="30")
+    .field
+      label(for="password") Password:
+      input(type="password", id="password", name="password", size="30")
+    .actions
+      input(name="commit", type="submit", value="Login")
