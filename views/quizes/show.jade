@@ -14,4 +14,8 @@ block content
     strong Comentarios:
 
   each comment in quiz.Comments
-    p #{comment.texto}
+    if (comment.publicado || session.user)
+      p ->#{comment.texto}
+      if (session.user && !comment.publicado)
+        a(href="/quizes/#{quiz.id}/comments/#{comment.id}/publish")
+          button Publicar
