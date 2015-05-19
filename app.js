@@ -17,7 +17,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -33,14 +32,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Esta función es necesaria para poder hacer accesible la sesion desde las vistas
 app.use(function(req, res, next){
-  //console.log('VEEME');
+
   //Guardar path en session.redir para el pos login
   if(!req.path.match(/\/login|\/logout/)){
     req.session.redir = req.path;
   }
-
   //Hacer visible req.session en las vistas
   res.locals.session = req.session;
+  next();
+});
+
+//MW de autologout
+app.use(function(req, res, next){
+//  var d = users.username;
+  //console.log();
   next();
 });
 
