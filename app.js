@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
-var session = require('express-session');
 
 var routes = require('./routes/index');
 
@@ -21,29 +20,10 @@ app.set('view engine', 'jade');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser('Quiz 2015'));
-app.use(session({
-        secret : 'cookie',
-        resave : true,
-        saveUninitialized: true
-        }));
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-
-//Esta función es necesaria para poder hacer accesible la sesion desde las vistas
-app.use(function(req, res, next){
-  //console.log('VEEME');
-  //Guardar path en session.redir para el pos login
-  if(!req.path.match(/\/login|\/logout/)){
-    req.session.redir = req.path;
-  }
-
-  //Hacer visible req.session en las vistas
-  res.locals.session = req.session;
-  next();
-});
-
 
 app.use('/', routes);
 
@@ -80,5 +60,6 @@ app.use(function(err, req, res, next) {
     errors: []
   });
 });
+
 
 module.exports = app;

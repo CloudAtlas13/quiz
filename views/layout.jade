@@ -7,13 +7,6 @@ html
     div#page-wrap
       header.main#h1
         h2 Quiz: el juego de las preguntas
-        if  !session.user
-          span.right
-            a(href="/login") Login
-        else
-          span.right
-            p #{session.user.username}
-            a(href="/logout") Logout
 
       nav.main#n1(role = "navigation")
         span
