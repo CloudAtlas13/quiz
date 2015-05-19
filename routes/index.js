@@ -3,6 +3,8 @@ var router = express.Router();
 
 //Importamos el controlador del 'quiz'
 var quizController = require('../controllers/quiz_controller');
+//Importamos controlador de los comentarios
+var commentController = require('../controllers/comment_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,5 +27,9 @@ router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
 router.put('/quizes/:quizId(\\d+)', quizController.update);
 
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
+
+//Eventos que atienden a las preguntas y a las respuestas del Comentario
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
+router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 
 module.exports = router;
