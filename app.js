@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 
@@ -20,8 +21,14 @@ app.set('view engine', 'jade');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('Quiz 2015'));
+app.use(session({
+        secret : 'cookie',
+        resave : true,
+        saveUninitialized: true
+        }));
+
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
