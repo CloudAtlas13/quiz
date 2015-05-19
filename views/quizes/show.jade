@@ -5,3 +5,13 @@ block content
     h3 Pregunta: #{quiz.pregunta}
     input(type="text", name="respuesta", value="Responda aquí")
     input(type="submit", value="Enviar")
+
+  p
+    a(href="/quizes/#{quiz.id}/comments/new")
+      button Nuevo Comentario
+
+  p
+    strong Comentarios:
+
+  each comment in quiz.Comments
+    p #{comment.texto}
