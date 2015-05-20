@@ -17,7 +17,9 @@ exports.create = function(req, res){
   var login = req.body.login;
   var password = req.body.password;
   var d = new Date();
-  var min = d.getMinutes;
+  var min = d.getMinutes();
+  min *= 60;
+  var secs = d.getSeconds() + min;
 
   var userController = require('./user_controller');
   userController.autenticar(login, password, function(error, user){
@@ -30,7 +32,7 @@ exports.create = function(req, res){
 
     //Crear sesion y guardar la ID y el nick
     //La sesión se define por la existencia de  req.session.user
-    req.session.user = {id:user.id, username:user.username, time:min};
+    req.session.user = {id:user.id, username:user.username, time:secs};
     res.redirect(req.session.redir.toString());
   });
 };

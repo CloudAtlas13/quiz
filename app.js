@@ -44,8 +44,15 @@ app.use(function(req, res, next){
 
 //MW de autologout
 app.use(function(req, res, next){
-//  var d = users.username;
-  //console.log();
+  var d = new Date();
+  var min = d.getMinutes();
+  min *= 60;
+  var secs = d.getSeconds() + min;
+
+  console.log(req.session.time);
+  if (false) {
+    req.session.time = secs;
+  }
   next();
 });
 
