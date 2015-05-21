@@ -7,6 +7,8 @@ var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 //Importamos controlador de las sesiones
 var sessionController = require('../controllers/session_controller');
+//Importamos controlador de las sesiones
+var userController = require('../controllers/user_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -17,14 +19,23 @@ router.get('/author', function(req, res, next) {
   res.render('author', { title: 'Autor', errors: [] });
 });
 
-//Autoload de comandos con :quizId
+//Autoload de comandos con Id
 router.param('quizId', quizController.load);
 router.param('commentId', commentController.load);
+router.param('userId', userController.load)
 
 //Eventos que atienden a las acciones de la sesión
 router.get('/login', sessionController.new);
 router.post('/login', sessionController.create);
 router.get('/logout', sessionController.destroy);
+
+//Eventos que atiendes a las rutas de los usuarios
+router.get('/user',  userController.new);
+router.post('/user',  userController.create);
+router.get('/user/:userId(\\d+)/edit',  sessionController.loginRequired, userController.edit);
+router.put('/user/:userId(\\d+)',  sessionController.loginRequired, userController.update);
+router.delete('/user/:userId(\\d+)',  sessionController.loginRequired, userController.destroy);
+
 
 //Eventos que atienden a las preguntas y a las respuestas del Quiz
 router.get('/quizes', quizController.index);

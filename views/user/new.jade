@@ -1,0 +1,7 @@
+extend ../layout
+
+block content
+  p Nuevo usuario
+
+  form(method="post", action="/user")
+    include _form.jade

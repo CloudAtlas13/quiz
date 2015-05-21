@@ -33,9 +33,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Esta función es necesaria para poder hacer accesible la sesion desde las vistas
 app.use(function(req, res, next){
-  //console.log('VEEME');
+  if (!req.session.redir) {
+    req.session.redir = '/';
+  }
   //Guardar path en session.redir para el pos login
-  if(!req.path.match(/\/login|\/logout/)){
+  if(!req.path.match(/\/login|\/logout|\/user/)){
     req.session.redir = req.path;
   }
 

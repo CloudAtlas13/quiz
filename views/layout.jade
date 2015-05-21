@@ -9,10 +9,12 @@ html
         h2 Quiz: el juego de las preguntas
         if  !session.user
           span.right
+            a(href="/user") Sign up
             a(href="/login") Login
         else
           span.right
             p #{session.user.username}
+            a(href="/user/#{session.user.id}/edit") Settings
             a(href="/logout") Logout
 
       nav.main#n1(role = "navigation")

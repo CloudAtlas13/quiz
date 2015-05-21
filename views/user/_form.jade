@@ -1,0 +1,9 @@
+label(for = "preg", class = "rem") Username:
+input(type="text", id="username", name="user[username]", value = "#{user.username}")
+br
+label(for = "resp", class = "rem") Password:
+input(type="text", id="pass", name="user[password]")
+br
+a(href="/quizes")
+  button(type = "button") Cancelar
+input(type = "submit" value = "Salvar")
