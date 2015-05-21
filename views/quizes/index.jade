@@ -12,12 +12,13 @@ block content
             td
               a(href="quizes/#{quiz.id}") #{quiz.pregunta}
             if session.user
-              td
-                a(href="quizes/#{quiz.id}/edit")
-                  button Editar
-              td
-                form(method="post", action="quizes/#{quiz.id}?_method=delete")
-                  button(type="submit", onclick="return confirm('Borrar: #{quiz.pregunta}');") Borrar
+              if (session.user.isAdmin || session.user.id === quiz.UserId)
+                td
+                  a(href="quizes/#{quiz.id}/edit")
+                    button Editar
+                td
+                  form(method="post", action="quizes/#{quiz.id}?_method=delete")
+                    button(type="submit", onclick="return confirm('Borrar: #{quiz.pregunta}');") Borrar
   if session.user
     a#crea(href="/quizes/new")
       button(type = "button") Crear pregunta

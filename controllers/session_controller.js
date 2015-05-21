@@ -28,7 +28,7 @@ exports.create = function(req, res){
 
     //Crear sesion y guardar la ID y el nick
     //La sesión se define por la existencia de  req.session.user
-    req.session.user = {id:user.id, username:user.username};
+    req.session.user = {id: user.id, username: user.username, isAdmin: user.isAdmin};
     res.redirect(req.session.redir.toString());
   });
 };
