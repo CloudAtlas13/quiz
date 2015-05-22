@@ -2,19 +2,12 @@ extend ../layout
 
 block content
 <<<<<<< HEAD
-<<<<<<< HEAD
   if (quiz.image)
     p
       img(class="quiz_img", src="/media/#{quiz.image}")
 
 =======
 >>>>>>> master
-=======
-  if quiz.image
-    p
-      img(class="quiz_img", src="../media/#{quiz.image}")
-
->>>>>>> parent of b7fc31e... Revert "Quiz 23 mal"
   form(method ="get", action="/quizes/#{quiz.id}/answer")
     h3 Pregunta: #{quiz.pregunta}
     input(type="text", name="respuesta", value="Responda aquí")
