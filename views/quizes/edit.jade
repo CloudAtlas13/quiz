@@ -3,5 +3,9 @@ extend ../layout
 block content
   br
   p Edite la pregunta:
+<<<<<<< HEAD
   form(method ="post", action="/quizes/#{quiz.id}?_method=put", enctype="multipart/form-data")
+=======
+  form(method ="post", action="/quizes/#{quiz.id}?_method=put")
+>>>>>>> master
     include _form.jade
