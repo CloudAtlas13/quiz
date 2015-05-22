@@ -30,13 +30,9 @@ exports.edit = function(req, res) {
 }
 
 exports.update = function(req, res) {
-<<<<<<< HEAD
   if(req.files.image){
     req.quiz.image = req.files.image.name;
   }
-=======
-  console.log('ENTRO UPDATE');
->>>>>>> master
   req.quiz.pregunta = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
 
@@ -97,12 +93,9 @@ exports.new = function(req, res) {
 
 exports.create = function(req, res) {
   req.body.quiz.UserId = req.session.user.id;
-<<<<<<< HEAD
   if(req.files.image){
     req.body.quiz.image = req.files.image.name;
   }
-=======
->>>>>>> master
   var quiz = models.Quiz.build( req.body.quiz);
 
   quiz.validate()
