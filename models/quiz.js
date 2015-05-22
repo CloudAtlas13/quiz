@@ -9,11 +9,17 @@ module.exports = function(sequelize, DataTypes){
               respuesta:{type: DataTypes.STRING,
                          validate:{ notEmpty:{msg: "->Falta Respuesta"}}
 <<<<<<< HEAD
+<<<<<<< HEAD
               },
               image: {
                  type: DataTypes.STRING
 =======
 >>>>>>> master
+=======
+              },
+              image: {
+                type: DataTypes.STRING
+>>>>>>> parent of b7fc31e... Revert "Quiz 23 mal"
               }
             }
   );

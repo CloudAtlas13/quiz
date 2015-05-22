@@ -4,8 +4,12 @@ block content
   br
   p Edite la pregunta:
 <<<<<<< HEAD
+<<<<<<< HEAD
   form(method ="post", action="/quizes/#{quiz.id}?_method=put", enctype="multipart/form-data")
 =======
   form(method ="post", action="/quizes/#{quiz.id}?_method=put")
 >>>>>>> master
+=======
+  form(method ="post", action="/quizes/#{quiz.id}?_method=put, enctype="multipart/form-data")
+>>>>>>> parent of b7fc31e... Revert "Quiz 23 mal"
     include _form.jade
