@@ -30,9 +30,7 @@ exports.edit = function(req, res) {
 }
 
 exports.update = function(req, res) {
-  if (req.files.image) {
-    req.quiz.image = req.files.image.name;
-  }
+  console.log('ENTRO UPDATE');
   req.quiz.pregunta = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
 
@@ -69,15 +67,18 @@ exports.answer = function(req, res) {
 };
 
 exports.index = function(req, res){
-  var options = {};
-  if(req.user){
-    options.where = {UserId: req.user.id}
-  }
-  models.Quiz.findAll(options).then(
-    function(quizes) {
-      res.render('quizes/index', {quizes: quizes, errors: []});
+  if(req.query.search === undefined){
+    models.Quiz.findAll().then(function(quizes){
+      res.render('quizes/index.jade', {quizes: quizes, errors: []});
+      console.log('Carga');
     }
-  ).catch(function(error){next(error)});
+    ).catch(function(error) { next(error);});
+  }else{
+    models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
+      res.render('quizes/index.jade', {quizes: quizes, errors: []});
+      console.log('bUSCA');
+    }).catch(function(error) { next(error);});
+  }
 };
 
 exports.new = function(req, res) {
@@ -90,9 +91,6 @@ exports.new = function(req, res) {
 
 exports.create = function(req, res) {
   req.body.quiz.UserId = req.session.user.id;
-  if (req.files.image) {
-    req.body.quiz.image = req.files.image.name;
-  }
   var quiz = models.Quiz.build( req.body.quiz);
 
   quiz.validate()
