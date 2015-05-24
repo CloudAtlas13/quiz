@@ -1,4 +1,4 @@
-body             { background: #333; }
+body             { background: #333; height: 100%;}
 
 #page-wrap:after { content: "Smartphone Layout"; }
 
