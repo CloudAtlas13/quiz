@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes){
                          validate:{ notEmpty:{msg: "->Falta Respuesta"}}
               },
               image: {
+                 //console.log('METE FOTOS');
                  type: DataTypes.STRING
               }
             }
