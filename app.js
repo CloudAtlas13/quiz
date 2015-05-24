@@ -31,6 +31,21 @@ app.use(session({
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//var userController = require('/controllers/user_controller');
+//MW encargado de chequear en cada petición HTTP si ha transcurrido 1 minuto desde la ultima
+app.use(function(req, res, next){
+  var tiempo = new Date();
+  tiempo = tiempo.getTime();
+  var lastAccess = req.session.user.username;
+  /*console.log(lastAccess);
+  if ((tiempo-lastAccess) > 120000) {
+    userController.destroy;
+  }else {
+    req.session.user.lastGet = tiempo;
+  }*/
+  next();
+});
+
 //Esta función es necesaria para poder hacer accesible la sesion desde las vistas
 app.use(function(req, res, next){
   if (!req.session.redir) {
