@@ -10,14 +10,14 @@ block content
         each quiz in quizes
           tr
             td
-              a(href="quizes/#{quiz.id}") #{quiz.pregunta}
+              a(href="/quizes/#{quiz.id}") #{quiz.pregunta}
             if session.user
               if (session.user.isAdmin || session.user.id === quiz.UserId)
                 td
-                  a(href="quizes/#{quiz.id}/edit")
+                  a(href="/quizes/#{quiz.id}/edit")
                     button Editar
                 td
-                  form(method="post", action="quizes/#{quiz.id}?_method=delete")
+                  form(method="post", action="/quizes/#{quiz.id}?_method=delete")
                     button(type="submit", onclick="return confirm('Borrar: #{quiz.pregunta}');") Borrar
   if session.user
     a#crea(href="/quizes/new")

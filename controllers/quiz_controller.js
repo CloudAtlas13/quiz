@@ -70,15 +70,17 @@ exports.answer = function(req, res) {
 
 exports.index = function(req, res){
   if(req.query.search === undefined){
-    models.Quiz.findAll().then(function(quizes){
+    var options = {};
+    if (req.user) {
+      options.where = {UserId: req.user.id}
+    }
+    models.Quiz.findAll(options).then(function(quizes){
       res.render('quizes/index.jade', {quizes: quizes, errors: []});
-      console.log('Carga');
     }
     ).catch(function(error) { next(error);});
   }else{
     models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
       res.render('quizes/index.jade', {quizes: quizes, errors: []});
-      console.log('bUSCA');
     }).catch(function(error) { next(error);});
   }
 };

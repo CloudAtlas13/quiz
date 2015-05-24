@@ -21,6 +21,8 @@ html
         span
           a(href="/")    Inicio
           a(href="/quizes")    Preguntas
+          if (session.user)
+            a(href="/user/#{session.user.id}/quizes") Mis preguntas
           a(href="/author")    Autores
 
       section.main#s1
