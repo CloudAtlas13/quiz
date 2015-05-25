@@ -48,7 +48,7 @@ router.post('/quizes/create', sessionController.loginRequired, multer({ dest: '.
 router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizController.ownershipRequired,quizController.edit);
 router.put('/quizes/:quizId(\\d+)',        sessionController.loginRequired, quizController.ownershipRequired, multer({ dest: './public/media/'}), quizController.update);
 router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.ownershipRequired, quizController.destroy);
-router.get('quizes/statistics', quizController.estadisticas);
+router.get('/quizes/statistics', quizController.estadisticas);
 
 //Eventos que atienden a las preguntas y a las respuestas del Comentario
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);

@@ -1,7 +1,28 @@
 var models = require('../models/models.js');
 
 exports.estadisticas = function(req, res){
-  models.Quiz.find({})
+  var stat = {};
+
+  stat.nQuiz =  models.Quiz.findAndCountAll(
+    ).then(function(resultado){
+      return resultado.count;
+    });
+  console.log('Numero de preguntas ' + stat.nQuiz);
+
+  models.Comment.findAndCountAll(
+  ).then(function(comentarios){
+    stat.nComments = comentarios.count;
+    console.log('Numero de comentarios ' + stat.nComments);
+  });
+  if (stat.nComments !== 0) {
+    stat.nMedio = stat.nQuiz/stat.nComments;
+  }else {
+    stat.nMedio = 0;
+  }
+
+
+  res.render('quizes/stats', {stat: stat,errors: []})
+
 }
 
 exports.ownershipRequired = function(req, res, next){
@@ -116,6 +137,7 @@ exports.create = function(req, res) {
     }
   })
 };
+
 
 exports.destroy = function(req, res){
   req.quiz.destroy().then( function(){
