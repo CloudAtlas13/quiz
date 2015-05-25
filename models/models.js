@@ -40,8 +40,11 @@ Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
 
 //Realizamos la asignacio de cada N a 1 de los Users
-Quiz.belongsTo(User);
-User.hasMany(Quiz);
+//Quiz.belongsTo(User);
+//User.hasMany(Quiz);
+
+User.belongsToMany(Quiz, {through: 'Favourites'});
+Quiz.belongsToMany(User, {through: 'Favourites'});
 
 exports.Quiz = Quiz;//Exportar la definicion de la tabla Quiz
 exports.Comment = Comment;//Exportar la definicion de la tabla Comments
