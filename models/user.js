@@ -43,10 +43,6 @@ module.exports = function(sequelize, DataTypes) {
             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false
-            },
-            lastGet:{
-                type: DataTypes.INTEGER,
-                defaultValue: 0
             }
         },
         {
