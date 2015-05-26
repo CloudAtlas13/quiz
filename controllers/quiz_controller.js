@@ -1,29 +1,39 @@
 var models = require('../models/models.js');
 
 exports.estadisticas = function(req, res){
-  var stat = {};
 
-  stat.nQuiz =  models.Quiz.findAndCountAll(
-    ).then(function(resultado){
-      return resultado.count;
-    });
-  console.log('Numero de preguntas ' + stat.nQuiz);
-
-  models.Comment.findAndCountAll(
-  ).then(function(comentarios){
-    stat.nComments = comentarios.count;
-    console.log('Numero de comentarios ' + stat.nComments);
-  });
-  if (stat.nComments !== 0) {
-    stat.nMedio = stat.nQuiz/stat.nComments;
-  }else {
-    stat.nMedio = 0;
-  }
+  models.Quiz.findAll(
+  ).then(function(quizes){
+    models.Comment.findAll(
+    ).then(function(commentarios){
+      var stat = {};
+      stat.nQuiz = quizes.length;
+      stat.nComments = commentarios.length;
+      stat.nMedio = (stat.nComments/stat.nQuiz);
+      stat.nComentadas = 0;
 
 
-  res.render('quizes/stats', {stat: stat,errors: []})
+      var comentadas = [];
+      for (var i = 0; i < commentarios.length; i++) {
+        var id = commentarios[i].QuizId;
+        var existe = false;
+        for (var j = 0; j <= comentadas.length; j++) {
+          if (id === comentadas[j]) {
+            existe = true;
+          }
+        }
+        if (!existe) {
+          stat.nComentadas++;
+          comentadas.push(id);
+        }
+      }
+      stat.nNoComentadas = stat.nQuiz - stat.nComentadas;
+      res.render('quizes/stats', {stat: stat, errors: [] });
+    }).catch(function(error) { next(error)});
+  }).catch(function(error) { next(error)});
 
 }
+
 
 exports.ownershipRequired = function(req, res, next){
   var objQuizOwner = req.quiz.UserId;

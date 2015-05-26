@@ -1,8 +1,12 @@
 extend ../layout
 
 block content
-  p #{stat.nQuiz}
+  p Número de preguntas #{stat.nQuiz}
   br
-  p #{stat.nComments}
+  p Número de comentarios #{stat.nComments}
   br
-  p #{stat.nMedio}
+  p Número medio de comentarios por pregunta #{stat.nMedio}
+  br
+  p Número de preguntas con comentarios #{stat.nComentadas}
+  br
+  p Número de preguntas sin comentarios #{stat.nNoComentadas}
