@@ -10,6 +10,8 @@ var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 //Importamos controlador de las sesiones
 var userController = require('../controllers/user_controller');
+//Importamos controlador de favoritos
+var favouritesController = require('../controllers/favourites_controller')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -37,6 +39,10 @@ router.get('/user/:userId(\\d+)/edit',  sessionController.loginRequired, userCon
 router.put('/user/:userId(\\d+)',  sessionController.loginRequired, userController.ownershipRequired,userController.update);
 router.delete('/user/:userId(\\d+)',  sessionController.loginRequired, userController.ownershipRequired,userController.destroy);
 router.get('/user/:userId(\\d+)/quizes', quizController.index);
+//Manejo de los favoritos
+router.put('/user/:userId(\\d+)/favourites/:quizId(\\d+)', sessionController.loginRequired, favouritesController.addFav);
+router.delete('/user/:userId(\\d+)/favourites/:quizId(\\d+)', sessionController.loginRequired, favouritesController.delFav);
+router.get('/user/:userId(\\d+)/favourites/:quizId(\\d+)', sessionController.loginRequired, favouritesController.index);
 
 
 //Eventos que atienden a las preguntas y a las respuestas del Quiz

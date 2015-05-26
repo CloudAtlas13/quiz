@@ -10,11 +10,10 @@ block content
         each quiz in quizes
           tr
             td
-              if session.user
-                if quiz.isFav
-                  img(class="fav_img", src="/images/fav.jpg")
-                else
-                  img(class="unfav_img", src="/images/unfav.jpg")
+              if quiz.isFav
+                img(class="fav_img", src="/images/fav.jpg")
+              else
+                img(class="unfav_img", src="/images/unfav.jpg")
               a(href="/quizes/#{quiz.id}") #{quiz.pregunta}
             if session.user
               if (session.user.isAdmin || session.user.id === quiz.UserId)
@@ -24,14 +23,3 @@ block content
                 td
                   form(method="post", action="/quizes/#{quiz.id}?_method=delete")
                     button(type="submit", onclick="return confirm('Borrar: #{quiz.pregunta}');") Borrar
-  if session.user
-    a#crea(href="/quizes/new")
-      button(type = "button") Crear pregunta
-  br
-  br
-  form(method ="get", action="/quizes")
-    input(type="text", name="search", value="")
-    input(type="submit", value="Buscar")
-
-  br
-  a#volver(href="/quizes") Mostrar lista
