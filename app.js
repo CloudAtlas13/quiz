@@ -31,6 +31,22 @@ app.use(session({
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//MW encargado de chequear en cada petición HTTP si ha transcurrido 1 minuto desde la ultima
+app.use(function(req, res, next){
+
+  if (req.session.user) {
+    var tiempo = new Date();
+    tiempo = tiempo.getTime();
+    if ((tiempo-req.session.user.lastGet) > 120000) {
+      delete req.session.user;
+      res.redirect(req.session.redir.toString());
+    } else {
+      req.session.user.lastGet = tiempo;
+    }
+  }
+  next();
+});
+
 //Esta función es necesaria para poder hacer accesible la sesion desde las vistas
 app.use(function(req, res, next){
   if (!req.session.redir) {

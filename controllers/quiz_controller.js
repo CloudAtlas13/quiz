@@ -1,5 +1,40 @@
 var models = require('../models/models.js');
 
+exports.estadisticas = function(req, res){
+
+  models.Quiz.findAll(
+  ).then(function(quizes){
+    models.Comment.findAll(
+    ).then(function(commentarios){
+      var stat = {};
+      stat.nQuiz = quizes.length;
+      stat.nComments = commentarios.length;
+      stat.nMedio = (stat.nComments/stat.nQuiz);
+      stat.nComentadas = 0;
+
+
+      var comentadas = [];
+      for (var i = 0; i < commentarios.length; i++) {
+        var id = commentarios[i].QuizId;
+        var existe = false;
+        for (var j = 0; j <= comentadas.length; j++) {
+          if (id === comentadas[j]) {
+            existe = true;
+          }
+        }
+        if (!existe) {
+          stat.nComentadas++;
+          comentadas.push(id);
+        }
+      }
+      stat.nNoComentadas = stat.nQuiz - stat.nComentadas;
+      res.render('quizes/stats', {stat: stat, errors: [] });
+    }).catch(function(error) { next(error)});
+  }).catch(function(error) { next(error)});
+
+}
+
+
 exports.ownershipRequired = function(req, res, next){
   var objQuizOwner = req.quiz.UserId;
   var logUser = req.session.user.id;
@@ -112,6 +147,7 @@ exports.create = function(req, res) {
     }
   })
 };
+
 
 exports.destroy = function(req, res){
   req.quiz.destroy().then( function(){
