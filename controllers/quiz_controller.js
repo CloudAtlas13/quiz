@@ -87,14 +87,27 @@ exports.update = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  models.Quiz.find(req.params.quizId).then(function(quiz){
-    res.render('quizes/show', { quiz: req.quiz, errors: []});
-  })
+  var isFav = false;
+    if(req.session.user){
+      models.Favourite.find({
+        where:{ UserId: Number(req.session.user.id),
+                QuizId: Number(req.quiz.id)}
+      }).then(function(fav){
+        if(fav){
+          isFav = true;
+        }
+        res.render('quizes/show', { quiz: req.quiz, isFav: isFav, errors: []});
+      });
+    }else{
+      models.Quiz.find(req.params.quizId).then(function(quiz){
+        res.render('quizes/show', { quiz: req.quiz, isFav: isFav, errors: []});
+      })
+    }
+
 };
 
 exports.answer = function(req, res) {
   models.Quiz.find(req.params.quizId).then(function(quiz){
-    console.log(req.quiz.respuesta);
     if(req.query.respuesta === req.quiz.respuesta){
       res.render('quizes/answer', {quiz: req.quiz , "respuesta": "Correcto", errors: []});
     } else {
@@ -104,20 +117,60 @@ exports.answer = function(req, res) {
 };
 
 exports.index = function(req, res){
-  if(req.query.search === undefined){
-    var options = {};
-    if (req.user) {
-      options.where = {UserId: req.user.id}
-    }
-    models.Quiz.findAll(options).then(function(quizes){
-      res.render('quizes/index.jade', {quizes: quizes, errors: []});
-    }
-    ).catch(function(error) { next(error);});
-  }else{
-    models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
-      res.render('quizes/index.jade', {quizes: quizes, errors: []});
-    }).catch(function(error) { next(error);});
+  var isFav = [];
+  var options = {};
+  if (req.user) {
+    options.where = {UserId: req.user.id}
   }
+  if(req.session.user){
+    models.Favourite.findAll({
+      where:{
+          UserId: Number(req.session.user.id)
+      }
+    }).then(function(favs){
+      if(req.query.search === undefined){
+
+        models.Quiz.findAll(options).then(function(quizes){
+          for (var i = 0; i < quizes.length; i++) {
+            isFav[i]=false;
+            var idQuiz = quizes[i].id;
+            for (var j = 0; j < favs.length; j++) {
+              if (favs[j].QuizId === idQuiz) {
+                isFav[i] = true;
+              }
+            }
+          }
+          res.render('quizes/index.jade', {quizes: quizes,isFav: isFav, errors: []});
+        }
+        ).catch(function(error) { next(error);});
+      }else{
+        models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
+          for (var i = 0; i < quizes.length; i++) {
+            isFav[i]=false;
+            var idQuiz = quizes[i].id;
+            for (var j = 0; j < favs.length; j++) {
+              if (favs[j].QuizId === idQuiz) {
+                isFav[i] = true;
+              }
+            }
+          }
+          res.render('quizes/index.jade', {quizes: quizes,isFav: isFav, errors: []});
+        }
+        ).catch(function(error) { next(error);});
+      }
+    })
+  }else{
+    if(req.query.search === undefined){
+      models.Quiz.findAll(options).then(function(quizes){
+        res.render('quizes/index.jade', {quizes: quizes, isFav: isFav, errors: []});
+      }
+      ).catch(function(error) { next(error);});
+    }else{
+      models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search+"%"]}).then(function(quizes){
+        res.render('quizes/index.jade', {quizes: quizes, isFav: isFav, errors: []});
+      }).catch(function(error) { next(error);});
+    }
+  };
 };
 
 exports.new = function(req, res) {
