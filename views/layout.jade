@@ -12,8 +12,8 @@ html
         h2 Quiz: el juego de las preguntas
         if  !session.user
           span.right
-            a(href="/user") Sign up
-            a(href="/login") Login
+            a(href="/user")   [Sign up]
+            a(href="/login")  [Login]
         else
           span.right
             p #{session.user.username}
@@ -23,11 +23,18 @@ html
       nav.main#n1(role = "navigation")
         span
           a(href="/")    Inicio
+          br
           a(href="/quizes")    Preguntas
+          br
           if (session.user)
-            a(href="/user/#{session.user.id}/quizes") Mis preguntas
+            a(href="/user/#{session.user.id}/quizes")  Mis preguntas
+            br
+            a(href="/user/#{session.user.id}/favourites")  Favoritos
+            br
           a(href="/author")    Autores
-          a(href="/quizes/statistics") Stats
+          br
+          a(href="/quizes/statistics")  Stats
+          br
 
       section.main#s1
         if errors.length

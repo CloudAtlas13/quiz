@@ -4,9 +4,17 @@ block content
   if (quiz.image)
     p
       img(class="quiz_img", src="/media/#{quiz.image}")
+  br
+  if session.user
+    if !isFav
+      form(method ="post", action="/user/#{session.user.id}/favourites/#{quiz.id}?_method=put")
+        input(type="image", src="/images/unfav.png")
+    else
+      form(method ="post", action="/user/#{session.user.id}/favourites/#{quiz.id}?_method=delete")
+        input(type="image", src="/images/fav.png")
+  h3 Pregunta: #{quiz.pregunta}
 
   form(method ="get", action="/quizes/#{quiz.id}/answer")
-    h3 Pregunta: #{quiz.pregunta}
     input(type="text", name="respuesta", value="Responda aquí")
     input(type="submit", value="Enviar")
 

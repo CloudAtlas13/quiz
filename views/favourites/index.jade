@@ -1,0 +1,22 @@
+extend ../layout
+
+block content
+  br
+  h3 Lista de Favoritos
+  br
+
+  #favs
+    each fav in favQuizes
+      tr
+        td
+          form(method ="post", action="/user/#{session.user.id}/favourites/#{fav.id}?_method=delete")
+            input(type="image", src="/images/fav.png", onclick="return confirm('¿Eliminar favorito?');")
+          a(href="/quizes/#{fav.id}") #{fav.pregunta}
+        if session.user
+          if (session.user.isAdmin || session.user.id === fav.UserId)
+            td
+              a(href="/quizes/#{fav.id}/edit")
+                button Editar
+            td
+              form(method="post", action="/quizes/#{fav.id}?_method=delete")
+                button(type="submit", onclick="return confirm('Borrar: #{fav.pregunta}');") Borrar

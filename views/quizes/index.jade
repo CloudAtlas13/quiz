@@ -7,9 +7,16 @@ block content
 
   #preguntas
       table
-        each quiz in quizes
+        each quiz,index in quizes
           tr
             td
+              if session.user
+                if !isFav[index]
+                  form(method ="post", action="/user/#{session.user.id}/favourites/#{quiz.id}?_method=put")
+                    input(type="image", src="/images/unfav.png")
+                else
+                  form(method ="post", action="/user/#{session.user.id}/favourites/#{quiz.id}?_method=delete")
+                    input(type="image", src="/images/fav.png", onclick="return confirm('¿Eliminar favorito?');")
               a(href="/quizes/#{quiz.id}") #{quiz.pregunta}
             if session.user
               if (session.user.isAdmin || session.user.id === quiz.UserId)
